@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+        <div>
+
+
+        <h5> {{ products_detail.title }} </h5>
+        <h5><span class="glyphicon glyphicon-time"></span> {{ products_detail.published_date }}</h5>
+        <p>{{ products_detail.description|linebreaksbr }}</p>
+
+        </div>
+
+
+{% endblock content %}
