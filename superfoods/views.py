@@ -8,8 +8,18 @@ from django.utils import timezone
 
 # Create your views here.
 def post_list(request):
-    products = Products.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'blog/post_list.html', {'products':products})
+    cat = request.GET.get('cat')
+
+    if cat is None:
+       products = Products.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    elif cat.isdigit():
+        cat = int(cat)
+        products = Products.objects.filter(published_date__lte=timezone.now()).filter(category=cat).order_by('published_date')
+    else:
+        products = Products.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+
+    return render(request, 'blog/post_list.html', {'products': products})
+
 
 
 def post_detail(request, pk):
